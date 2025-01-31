@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="week2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="week2_files/libs/quarto-html/tabby.min.js"></script>
+<script src="week2_files/libs/quarto-html/popper.min.js"></script>
+<script src="week2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="week2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="week2_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="week2_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="week2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.5.57">
+
+  <meta name="author" content="Dr.&nbsp;Zexun Chen">
+  <title>Web and Social Network Analytics</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="week2_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="week2_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="week2_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="customised.css">
+  <link href="week2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="week2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="week2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="week2_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="week2_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="week2_files/libs/revealjs/plugin/simplemenu/simplemenu.css" rel="stylesheet">
+  <link href="week2_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-state="hide-menubar" class="quarto-title-block center">
+  <h1 class="title">Web and Social Network Analytics</h1>
+  <p class="subtitle">Week 2: Search Engines &amp; Web Crawler</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Dr.&nbsp;Zexun Chen <a href="https://orcid.org/0000-0001-7883-8573" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a>
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:Zexun.Chen@ed.ac.uk">Zexun.Chen@ed.ac.uk</a>
+</div>
+</div>
+</div>
+
+  <p class="date">Jan-2025</p>
+</section>
+<section id="table-of-contents" class="slide level2 center" data-state="hide-menubar">
+<h2>Table of Contents</h2>
+<ul class="menu">
+<ul>
+</ul></ul></section>
+<section>
+<section id="search-engines" class="title-slide slide level1 center" data-stack-name="Engines">
+<h1>Search Engines</h1>
+
+</section>
+<section id="introduction" class="slide level2 center">
+<h2>Introduction</h2>
+<p>Search Engines: One of the most widely-used sources of information</p>
+<div style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/search-engine-market-share-2025.png"></p>
+<figcaption><a href="https://www.klatch.co.uk/uk-search-engine-market-share">Search Engine Market Share in the UK and Worldwide</a></figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="google-search-in-2024" class="slide level2 center">
+<h2>Google Search in 2024</h2>
+<iframe data-external="1" src="https://www.youtube.com/embed/61JHONRXhjs" width="1000" height="600" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</section>
+<section id="search-engines-1" class="slide level2 center">
+<h2>Search Engines</h2>
+<div style="font-size: 70%;">
+<ul>
+<li class="fragment">Make the web navigational to the World Wide Web
+<ul>
+<li class="fragment">Examples: Google, Yahoo, Bing, Baidu, Yandex, DuckDuckGO</li>
+<li class="fragment">AI-Powered Search Enginies, e.g., <a href="https://www.perplexity.ai/">perplexity</a></li>
+<li class="fragment">Searches the Deep Web/Dark Web as well:
+<ul>
+<li class="fragment">Part of the web that is not <strong>indexed</strong> by well-known search engines</li>
+<li class="fragment">Typically hidden behind paywalls, scripts, etc.</li>
+<li class="fragment">Dark web: websites that can only be reached by encryption-enabled browsers, e.g., Tor (The Onion Router)</li>
+</ul></li>
+<li class="fragment">Privacy-oriented search engines, e.g., DuckDuckGo, TorSearch (indexes pages to help find content in websites located on the Tor network), etc.</li>
+<li class="fragment">Search Engine is <strong>NOT</strong> the same as Web Browser:
+<ul>
+<li class="fragment">Search Engine: Google, DuckDuckGo, TorSearch, Bing</li>
+<li class="fragment">Web Browser: Chrome (default engine: Google), DuckDuckGo Browser (default engine: DuckDuckGo), Tor Browser (default engine: DuckDuckGo), Edge (default engine: Bing)</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="web-search-basics" class="title-slide slide level1 center" data-stack-name="Architecture">
+<h1>Web Search Basics</h1>
+
+</section>
+<section id="architecture" class="slide level2 center">
+<h2>Architecture</h2>
+<div style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/architecture-basics.PNG"></p>
+<figcaption>The basic architecture of a search engine</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="key-components" class="slide level2 center">
+<h2>Key Components</h2>
+<div style="font-size: 100%;">
+<ul>
+<li class="fragment"><strong>Web Crawlers:</strong> Automated scripts that browse the internet to collect data.</li>
+<li class="fragment"><strong>Indexer:</strong> Processes and stores information gathered by crawlers.</li>
+<li class="fragment"><strong>Search Algorithm:</strong> Determines the relevance and ranking of results.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2 center">
+
+<h3 id="how-google-search-works">How Google Search Works</h3>
+<iframe data-external="1" src="https://www.youtube.com/embed/0eKVizvYSUQ" width="1000" height="600" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</section>
+<section id="principles" class="slide level2 center">
+<h2>Principles</h2>
+<div style="font-size: 100%;">
+<ul>
+<li class="fragment"><strong>Finding:</strong> To “crawl” all of the links on the web.</li>
+<li class="fragment"><strong>Organizing:</strong> To index all of these links into their database.</li>
+<li class="fragment"><strong>Serving:</strong> To rank these links.</li>
+</ul>
+</div>
+</section>
+<section id="comparison" class="slide level2 center">
+<h2>Comparison</h2>
+<div style="font-size: 55%;">
+<ul>
+<li class="fragment">How to compare search engines technically?
+<ul>
+<li class="fragment"><strong>Estimates of fractions of the web indexed:</strong>
+<ul>
+<li class="fragment">Independently estimated by picking random documents from one index.</li>
+</ul></li>
+<li class="fragment"><strong>Randomly sample each other:</strong>
+<ul>
+<li class="fragment"><span class="math inline">\(|E_i|\)</span>: Number of indexed pages for engine <span class="math inline">\(i \in [1,2]\)</span>.</li>
+<li class="fragment">Proportion of indices from <span class="math inline">\(E_1\)</span> available <span class="math inline">\(E_2 \mapsto x\)</span>.</li>
+<li class="fragment">Proportion of indices from <span class="math inline">\(E_2\)</span> available <span class="math inline">\(E_1 \mapsto y\)</span>.</li>
+<li class="fragment">Check whether <span class="math inline">\(\frac{|E_1|}{|E_2|} \approx \frac{y}{x}\)</span>.</li>
+</ul></li>
+<li class="fragment"><strong>Random tests:</strong>
+<ul>
+<li class="fragment">Random search: Bias towards what is queried.</li>
+<li class="fragment">Random IP address: Bias towards shared, grouped IPs.</li>
+<li class="fragment">Random walks: Web is not strongly connected; this is expensive.</li>
+</ul></li>
+</ul></li>
+<li class="fragment"><strong>Other difficulties:</strong>
+<ul>
+<li class="fragment"><strong>Term spam:</strong> Adding words that are unrelated to the site.</li>
+<li class="fragment"><strong>Duplicates:</strong> (~40% of the web).</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 center">
+
+<h3 id="shingling-for-duplicates">Shingling for Duplicates</h3>
+<div class="columns">
+<div class="column" style="font-size: 55%;">
+<ul>
+<li>Compare and determine how similar.</li>
+<li>Document comparison.</li>
+<li>Plagiarism detection.</li>
+</ul>
+<div style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/Shingling.PNG" style="width:70.0%"></p>
+<figcaption>Shingling</figcaption>
+</figure>
+</div>
+</div>
+</div><div class="column" style="font-size: 55%;">
+<ul>
+<li><strong>Shingle:</strong> String of length <span class="math inline">\(k\)</span> in a document <span class="math inline">\(d\)</span>.
+<ul>
+<li>Example: <span class="math inline">\(k = 5\)</span> in “University of Edinburgh.”</li>
+<li>Shingles: “Unive”, “niver”, …, “burgh.”</li>
+<li><span class="math inline">\(k\)</span> typically not too small to avoid overlap in documents.</li>
+</ul></li>
+<li><strong>Degree of overlap between two documents:</strong>
+<ul>
+<li><span class="math inline">\(S(d_j)\)</span>: The shingles in <span class="math inline">\(d_j\)</span>.</li>
+<li>Jaccard index (intersection over union): <span class="math display">\[
+J(S(d_1), S(d_2)) = \frac{|S(d_1)\cap S(d_2)|}{|S(d_1) \cup S(d_2)|}
+\]</span></li>
+<li>If threshold exceeded: regarded as similar.
+<ul>
+<li>Apply hashing to document’s shingles.</li>
+<li>Information on shingles.</li>
+</ul></li>
+</ul></li>
+<li><strong>Challenges:</strong>
+<ul>
+<li>High computational resources for large documents or web pages.</li>
+<li>Optimal size of shingles.</li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="shingling" class="slide level2 center">
+<h2>Shingling</h2>
+<div style="font-size: 80%;">
+<ul>
+<li class="fragment">A <strong>k-shingle</strong> is a consecutive set of <span class="math inline">\(k\)</span> words. For example: <span class="math display">\[
+D_1 = \text{"I am Zexun"}, \quad D_2 = \text{"Zexun I am"}.
+\]</span>
+<ul>
+<li class="fragment">The (k=1)-shingles of <span class="math inline">\(D_1 \cup D_2\)</span> = { “I”, “am”, “Zexun” }.</li>
+<li class="fragment">The (k=2)-shingles of <span class="math inline">\(D_1 \cup D_2\)</span> = { “I am”, “am Zexun”, “Zexun I” }.</li>
+</ul></li>
+<li class="fragment">Let’s look at (k=2)-shingles for each <span class="math inline">\(D_1\)</span> and <span class="math inline">\(D_2\)</span>: <span class="math display">\[
+D_1 : \text{"I am", "am Zexun"} \quad D_2 : \text{"Zexun I", "I am"}
+\]</span></li>
+<li class="fragment">Therefore, the Jaccard index: <span class="math display">\[
+JS(D_1, D_2) = \frac{1}{3}
+\]</span></li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="web-crawlers" class="title-slide slide level1 center" data-stack-name="Crawlers">
+<h1>Web Crawlers</h1>
+
+</section>
+<section id="basics" class="slide level2 center">
+<h2>Basics</h2>
+<div title="Web Crawler" style="font-size: 70%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Web Crawler</strong></p>
+</div>
+<div class="callout-content">
+<p>It aims to quickly and efficiently gather as many useful web pages as possible. Also called <strong>spiders</strong>, <strong>bots</strong>, or <strong>web robots</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="column">
+<div style="font-size: 65%;">
+<ol type="1">
+<li class="fragment"><strong>Starting Point:</strong> Begin with a list of web addresses (URLs).</li>
+<li class="fragment"><strong>Crawling:</strong> Visit each URL and read the content of the page.</li>
+<li class="fragment"><strong>Extracting Links:</strong> Identify all hyperlinks on the page and add them to the list of URLs to visit.</li>
+<li class="fragment"><strong>Repeating the Process:</strong> Continue crawling these new URLs.</li>
+<li class="fragment"><strong>Respecting Rules:</strong> Adhere to <code>robots.txt</code> files and meta tags.</li>
+</ol>
+</div>
+</div><div class="column" style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/web-crawler.png" style="width:65.0%"></p>
+<figcaption>Web Crawler</figcaption>
+</figure>
+</div>
+</div></section>
+<section id="web-crawling-vs-web-scraping" class="slide level2 center">
+<h2>Web Crawling vs Web Scraping</h2>
+<div style="font-size: 70%;">
+<ul>
+<li>Both are techniques used for extracting data from the web.</li>
+<li><strong>Web Crawling:</strong> Focuses on navigating the web and indexing content.</li>
+<li><strong>Web Scraping:</strong> Involves extracting specific data from web pages.</li>
+</ul>
+</div>
+<div style="text-align:center; font-size: 70%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 35%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Aspect</strong></th>
+<th><strong>Web Crawling</strong></th>
+<th><strong>Web Scraping</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Purpose</strong></td>
+<td>Indexing web content</td>
+<td>Extracting specific data</td>
+</tr>
+<tr class="even">
+<td><strong>Process</strong></td>
+<td>Navigating and mapping</td>
+<td>Parsing HTML for data</td>
+</tr>
+<tr class="odd">
+<td><strong>Usage</strong></td>
+<td>Search engines</td>
+<td>Data analysis, research</td>
+</tr>
+<tr class="even">
+<td><strong>Data</strong></td>
+<td>Metadata, links</td>
+<td>Targeted data, text</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section></section>
+<section>
+<section id="indexing-and-storing-data" class="title-slide slide level1 center" data-stack-name="Index&amp;Store">
+<h1>Indexing and Storing Data</h1>
+
+</section>
+<section id="steps" class="slide level2 center">
+<h2>Steps</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="step-1-indexing">Step 1: Indexing</h3>
+<div style="font-size: 80%;">
+<ul>
+<li class="fragment">Indexing is the process of organizing data in a way that makes it efficiently retrievable.</li>
+<li class="fragment">Key to the functioning of search engines and large databases.</li>
+<li class="fragment">Involves creating references to data for quick access.</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<h3 id="step-2-storing">Step 2: Storing</h3>
+<div style="font-size: 80%;">
+<ul>
+<li class="fragment">Data storage involves saving indexed data in a structured format.</li>
+<li class="fragment">Includes databases, data warehouses, and cloud storage.</li>
+<li class="fragment">Ensures data security, integrity, and availability.</li>
+</ul>
+</div>
+</div></div>
+</section></section>
+<section>
+<section id="algorithms" class="title-slide slide level1 center" data-stack-name="Algorithms">
+<h1>Algorithms</h1>
+
+</section>
+<section id="searching-and-presentation" class="slide level2 center">
+<h2>Searching and Presentation</h2>
+<div style="font-size: 70%;">
+<ul>
+<li class="fragment"><strong>Key Role:</strong> To rank web pages based on relevance and authority.
+<ul>
+<li class="fragment"><strong>Keyword Analysis:</strong> The primary step in understanding the query intent.</li>
+<li class="fragment"><strong>PageRank:</strong> Google’s initial algorithm based on <strong>Link Analysis</strong>.</li>
+<li class="fragment"><strong>Current Trends:</strong> Incorporation of AI and machine learning for context understanding.</li>
+</ul></li>
+<li class="fragment"><strong>Relevance in Search Results:</strong>
+<ul>
+<li class="fragment">Defining relevance: Matching user queries with accurate and useful information.</li>
+<li class="fragment">Factors influencing relevance: Keywords, site authority, content quality, user engagement metrics.</li>
+<li class="fragment">The challenge of subjectivity in relevance.</li>
+</ul></li>
+<li class="fragment"><strong>Personalization:</strong>
+<ul>
+<li class="fragment">Same search, but different results based on user context.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="link-analysis" class="slide level2 center">
+<h2>Link Analysis</h2>
+<div class="columns">
+<div class="column" style="font-size: 65%;">
+<ul>
+<li class="fragment"><strong>Based on the principle of referral:</strong>
+<ul>
+<li class="fragment">Relies on the relevance and quality of web pages.</li>
+<li class="fragment">Quantifies the influence of a web page by the number of referrals.</li>
+<li class="fragment">Acts as evidence for authority.</li>
+</ul></li>
+<li class="fragment"><strong>Potential Abuse:</strong>
+<ul>
+<li class="fragment">Link spam by setting up many referring websites.</li>
+</ul></li>
+<li class="fragment"><strong>Sets the web up as a graph:</strong>
+<ul>
+<li class="fragment"><strong>Nodes (vertices):</strong> Web pages.</li>
+<li class="fragment"><strong>Edges (links):</strong> Hyperlinks between pages.</li>
+</ul></li>
+</ul>
+</div><div class="column" style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/Link-Graph.PNG" style="width:80.0%"></p>
+<figcaption>Link Graph</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="markov-chains-definition" class="slide level2 center">
+<h2>Markov Chains: Definition</h2>
+<div style="font-size: 70%;">
+<p>A Markov chain (or process) is a stochastic model describing a sequence of possible events in which the probability of each event depends only on the state attained in the previous event.</p>
+</div>
+<div class="columns">
+<div class="column">
+<p>Key Concepts</p>
+<div style="font-size: 70%;">
+<ul>
+<li class="fragment">In each step, a random choice is made.</li>
+<li class="fragment">Consists of <span class="math inline">\(N\)</span> states (e.g., each web page).</li>
+<li class="fragment"><span class="math inline">\(N \times N\)</span> transition probability matrix <span class="math inline">\(P\)</span>:
+<ul>
+<li class="fragment">Each row of <span class="math inline">\(P\)</span> adds up to 1.</li>
+<li class="fragment"><span class="math inline">\(P_{ij}\)</span> tells the probability that the next state is <span class="math inline">\(j\)</span> when in state <span class="math inline">\(i\)</span>.</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/markov-chain.png" style="width:100.0%"></p>
+<figcaption>Markov Chain</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="markov-chains-surfers-position" class="slide level2 center">
+<h2>Markov Chains: Surfer’s Position</h2>
+<div style="font-size: 70%;">
+<ul>
+<li class="fragment">At time <span class="math inline">\(t\)</span>, the probability vector is <span class="math inline">\(x_0 P\)</span>: <span class="math display">\[
+(x_0 P) P = x_0 P^2
+\]</span></li>
+<li class="fragment">Converges to a steady-state distribution.</li>
+<li class="fragment">Each entry of <span class="math inline">\(P\)</span> only depends on the current state.</li>
+</ul>
+</div>
+<div style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/markov-chain-2.png"></p>
+<figcaption>Markov Chain Steady-State</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="markov-chains-adjacency-matrix" class="slide level2 center">
+<h2>Markov Chains: Adjacency Matrix</h2>
+<div style="font-size: 65%;">
+<p>A random surfer’s behavior on the web graph can be modeled with an <strong>adjacency matrix</strong>: <span class="math display">\[
+  A = (a_{ij}) = \text{Number of edges from vertex $i$ to $j$}.
+  \]</span></p>
+</div>
+<div class="columns">
+<div class="column" style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/adj-matrix-A.PNG"></p>
+<figcaption>Adjacency Matrix</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div style="font-size: 65%;">
+<ul>
+<li class="fragment"><strong>Dead Ends:</strong>
+<ul>
+<li class="fragment">No outlinks; rows in <span class="math inline">\(A\)</span> sum to 0.</li>
+<li class="fragment">After a few iterations, entries in <span class="math inline">\(x\)</span> become 0.</li>
+</ul></li>
+<li class="fragment"><strong>Solutions:</strong>
+<ul>
+<li class="fragment">Drop dead ends (cascading effect).</li>
+<li class="fragment">Add “teleportation” links:
+<ul>
+<li class="fragment">Randomly jump to another page with probability <span class="math inline">\(0 &lt; \alpha &lt; 1\)</span>.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div></div>
+</section>
+<section id="markov-chains-adjacency-matrix-1" class="slide level2 center">
+<h2>Markov Chains: Adjacency Matrix</h2>
+<div style="font-size: 100%;">
+<ul>
+<li class="fragment">Transform <span class="math inline">\(A\)</span> to <span class="math inline">\(P\)</span>:
+<ol type="1">
+<li class="fragment">Divide each 1 by the number of ones in the row.</li>
+<li class="fragment">If a row has no 1s, replace by <span class="math inline">\(1/N\)</span>.</li>
+<li class="fragment">Multiply the matrix by <span class="math inline">\(1 - \alpha\)</span>.</li>
+<li class="fragment">Add <span class="math inline">\(\alpha / N\)</span> to every entry.</li>
+</ol></li>
+</ul>
+</div>
+</section>
+<section id="markov-chains-example-1" class="slide level2 center">
+<h2>Markov Chains: Example 1</h2>
+<div class="columns">
+<div class="column">
+<div style="font-size: 70%;">
+<ul>
+<li class="fragment">Converting this web graph from an adjacency matrix to a transition matrix for <span class="math inline">\(\alpha = 0.3\)</span>: <span class="math display">\[
+A = \begin{pmatrix}
+1 &amp; 0 &amp; 1\\
+0 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0
+\end{pmatrix}
+\]</span></li>
+<li class="fragment">Transition matrix accounts for teleportation probability.</li>
+</ul>
+</div>
+</div><div class="column" style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/alpha03.PNG"></p>
+<figcaption>Transition Matrix for α=0.3</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="markov-chains-example-2" class="slide level2 center">
+<h2>Markov Chains: Example 2</h2>
+<div class="columns">
+<div class="column">
+<div style="font-size: 70%;">
+<ul>
+<li class="fragment">Converting this web graph from an adjacency matrix to a transition matrix for <span class="math inline">\(\alpha = 0.7\)</span>: <span class="math display">\[
+A = \begin{pmatrix}
+1 &amp; 0 &amp; 1\\
+0 &amp; 0 &amp; 0\\
+1 &amp; 1 &amp; 1
+\end{pmatrix}
+\]</span></li>
+<li class="fragment">Transition matrix includes teleportation adjustments with a higher <span class="math inline">\(\alpha\)</span> value.</li>
+</ul>
+</div>
+</div><div class="column" style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/alpha06.PNG"></p>
+<figcaption>Transition Matrix for α=0.7</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="pagerank-algorithm-overview" class="slide level2 center">
+<h2>PageRank: Algorithm Overview</h2>
+<div style="font-size: 85%;">
+<ul>
+<li class="fragment">Basic algorithm underlying Google’s search engine.</li>
+<li class="fragment">Named after Larry Page (Co-founder of Google).</li>
+<li class="fragment">A general approach for scoring nodes in a network.</li>
+</ul>
+</div>
+<div style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/PageRank.jpg" style="width:50.0%"></p>
+<figcaption>PageRank</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="pagerank-principles" class="slide level2 center">
+<h2>PageRank: Principles</h2>
+<div style="font-size: 70%;">
+<ul>
+<li class="fragment">At each time step, the surfer makes a decision.</li>
+<li class="fragment">In the long run, some pages are visited more often than others.</li>
+<li class="fragment">Challenges:
+<ul>
+<li class="fragment">What if there are no out-links?
+<ul>
+<li class="fragment">Add teleportation modeled as <span class="math inline">\(1/N\)</span>.</li>
+<li class="fragment">Each node receives teleport probability <span class="math inline">\(\alpha\)</span>.</li>
+</ul></li>
+</ul></li>
+<li class="fragment"><span class="math inline">\(\pi(\nu)\)</span> (PageRank score) combines:
+<ul>
+<li class="fragment"><strong>Random Walk:</strong> Reflects the structure of the web graph.</li>
+<li class="fragment"><strong>Teleportation:</strong> Controlled by <span class="math inline">\(\alpha\)</span>.</li>
+</ul></li>
+<li class="fragment">Assumption: Important websites receive more links from other websites.</li>
+</ul>
+</div>
+</section>
+<section id="pagerank-computation" class="slide level2 center">
+<h2>PageRank Computation</h2>
+<div class="columns">
+<div class="column">
+<div style="font-size: 65%;">
+<ul>
+<li class="fragment">Left eigenvectors of <span class="math inline">\(P\)</span> are vectors <span class="math inline">\(\pi\)</span> of size <span class="math inline">\(N\)</span>:
+<ul>
+<li class="fragment"><span class="math inline">\(\pi P = \lambda \pi\)</span>, where <span class="math inline">\(\lambda\)</span> are the eigenvalues of <span class="math inline">\(P\)</span>.</li>
+<li class="fragment">If <span class="math inline">\(\pi\)</span> is the steady-state distribution: <span class="math display">\[
+\pi P = 1 \pi
+\]</span></li>
+<li class="fragment">Compute left eigenvector of <span class="math inline">\(P\)</span> for eigenvalue 1 to obtain PageRank values <span class="math inline">\(\pi\)</span>.</li>
+</ul></li>
+<li class="fragment">Calculated through <strong>power iteration</strong>:
+<ol type="1">
+<li class="fragment">Start with an initial distribution <span class="math inline">\(x\)</span>.</li>
+<li class="fragment">Find <span class="math inline">\(xP^t\)</span> for large <span class="math inline">\(t\)</span>, as frequencies converge.</li>
+<li class="fragment">Simulates a user’s surfing behavior.</li>
+</ol></li>
+</ul>
+</div>
+</div><div class="column" style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/PageRank-2.PNG" style="width:100.0%"></p>
+<figcaption>PageRank Illustration</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="pagerank-computation-exercise" class="slide level2 center">
+<h2>PageRank Computation: Exercise</h2>
+<div class="columns">
+<div class="column">
+<h3 id="question">Question</h3>
+<div style="font-size: 65%;">
+<ul>
+<li>Find the “coolest page” if <span class="math inline">\(x_0 = (1 \, 0 \, 0)\)</span> over 3 iterations: <span class="math display">\[
+P = \begin{pmatrix}
+0.45 &amp; 0.1 &amp; 0.45\\
+0.33 &amp; 0.33 &amp; 0.33\\
+0.1 &amp; 0.8 &amp; 0.1
+\end{pmatrix}
+\]</span></li>
+</ul>
+</div>
+<div style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/PageRank-4.PNG" style="width:75.0%"></p>
+<figcaption>Question Graph</figcaption>
+</figure>
+</div>
+</div>
+</div><div class="column" style="text-align:center;">
+<h3 id="solution">Solution</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/PageRank-5.PNG" style="width:90.0%"></p>
+<figcaption>Solution Graph</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="topic-specific-pagerank" class="slide level2 center">
+<h2>Topic-Specific PageRank</h2>
+<div style="font-size: 70%;">
+<ul>
+<li class="fragment"><strong>Query-Independent Measure:</strong>
+<ul>
+<li class="fragment">Query results are based on PageRank.</li>
+<li class="fragment">Relative ordering depends on the query and the PageRank score.</li>
+</ul></li>
+<li class="fragment"><strong>Topic-Specific PageRank:</strong>
+<ul>
+<li class="fragment">Teleporting is not uniformly distributed.</li>
+<li class="fragment">Example: A sports fanatic’s browsing preferences: <span class="math display">\[
+S: \text{Sports-related pages, with sports PageRank } \pi_S.
+\]</span>
+<ul>
+<li class="fragment">Entries in <span class="math inline">\(\pi_S\)</span> are zero for unrelated webpages.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="personalized-pagerank" class="slide level2 center">
+<h2>Personalized PageRank</h2>
+<div class="columns">
+<div class="column">
+<div style="font-size: 70%;">
+<ul>
+<li class="fragment">Linear combination of a small number of topic-specific distributions.</li>
+<li class="fragment">Example: <span class="math display">\[
+0.06 \pi_S + 0.04 \pi_P
+\]</span>
+<ul>
+<li class="fragment">For sports and politics browsing.</li>
+<li class="fragment">User has 10% teleport probability:
+<ul>
+<li class="fragment">6% sports teleport.</li>
+<li class="fragment">4% politics teleport.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/PageRank-6.PNG"></p>
+<figcaption>Personalized PageRank Graph</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="hubs-and-authorities" class="slide level2 center">
+<h2>Hubs and Authorities</h2>
+<div class="columns">
+<div class="column">
+<div style="font-size: 60%;">
+<ul>
+<li class="fragment"><strong>PageRank:</strong> Simplistic view of a network (one score per node).</li>
+<li class="fragment"><strong>Hubs and Authorities:</strong> Richer view of a network with different node types:
+<ul>
+<li class="fragment"><strong>Hub:</strong> A page that points to many others.</li>
+<li class="fragment"><strong>Authority:</strong> A page that many others refer to.</li>
+</ul></li>
+<li class="fragment"><strong>Reflecting Types of Websites:</strong>
+<ul>
+<li class="fragment">Broad-topic searches often land on authority pages:
+<ul>
+<li class="fragment">Example: Searching “leukaemia” leads to the National Cancer Institute’s page.</li>
+</ul></li>
+<li class="fragment">Hub pages point to authoritative pages:
+<ul>
+<li class="fragment">Example: Searching “sell property” leads to Rightmove.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="text-align:center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/hub_and_authority.png" style="width:95.0%"></p>
+<figcaption>Hubs and Authorities</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="hubs-and-authorities-calculations" class="slide level2 center">
+<h2>Hubs and Authorities: Calculations</h2>
+<div style="font-size: 60%;">
+<ul>
+<li class="fragment">For a web page/node <span class="math inline">\(\nu\)</span>:
+<ul>
+<li class="fragment"><span class="math inline">\(h(\nu)\)</span>: Hub score.</li>
+<li class="fragment"><span class="math inline">\(a(\nu)\)</span>: Authority score.</li>
+<li class="fragment">Initially: <span class="math inline">\(h(\nu) = a(\nu) = 1\)</span>.</li>
+<li class="fragment"><span class="math inline">\(\nu \mapsto y\)</span> if a link exists between <span class="math inline">\(\nu\)</span> and <span class="math inline">\(y\)</span>.</li>
+</ul></li>
+<li class="fragment">Iterative Calculations:
+<ul>
+<li class="fragment"><span class="math inline">\(h(\nu) \leftarrow \sum_{\nu \to y} a(y)\)</span>.</li>
+<li class="fragment"><span class="math inline">\(a(\nu) \leftarrow \sum_{y \to \nu} h(y)\)</span>.</li>
+<li class="fragment"><span class="math inline">\(\textbf{h} \leftarrow A \textbf{a}\)</span>, <span class="math inline">\(\textbf{a} \leftarrow A^T \textbf{h}\)</span> (adjacency matrix <span class="math inline">\(A\)</span>).</li>
+<li class="fragment"><span class="math inline">\(\textbf{h} \leftarrow AA^T \textbf{h}\)</span>, <span class="math inline">\(\textbf{a} \leftarrow A^T A \textbf{a}\)</span> with SVD.
+<ul>
+<li class="fragment"><span class="math inline">\(\lambda_h \textbf{h} = AA^T \textbf{h}\)</span>, <span class="math inline">\(\lambda_a \textbf{a} = A^T A \textbf{a}\)</span>.</li>
+<li class="fragment"><span class="math inline">\(\lambda_h, \lambda_a\)</span>: Eigenvalues of <span class="math inline">\(AA^T\)</span> and <span class="math inline">\(A^T A\)</span> respectively.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="hits-algorithm" class="slide level2 center">
+<h2>HITS Algorithm</h2>
+<div style="font-size: 60%;">
+<ul>
+<li><strong>Hyperlink-Induced Topic Search (HITS)</strong>(Kleinberg, 1997):
+<ol type="1">
+<li>Assemble the target subset of web pages and then Compute <span class="math inline">\(AA^T\)</span> / <span class="math inline">\(A^T A\)</span>.</li>
+<li>Calculate eigenvectors to find <span class="math inline">\(\textbf{h}\)</span> and <span class="math inline">\(\textbf{a}\)</span>, Output the top-scoring hubs and authorities.</li>
+</ol></li>
+</ul>
+</div>
+<div style="text-align:center;font-size: 60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="fig/hubs-authority.PNG" style="width:65.0%"></p>
+<figcaption>Note: Links containing the query “jaguar” receive double weighting.</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="choosing-the-subset-of-the-web" class="slide level2 center">
+<h2>Choosing the Subset of the Web</h2>
+<div style="font-size: 60%;">
+<ul>
+<li class="fragment"><strong>Collection of Sites:</strong>
+<ul>
+<li class="fragment">Use a text index to get all related pages – root set.</li>
+<li class="fragment">Build base set: root set + referring pages.</li>
+<li class="fragment">Use the base set to compute hub and authority scores.</li>
+</ul></li>
+<li class="fragment"><strong>Authority Sites May Not Contain Keywords:</strong>
+<ul>
+<li class="fragment">Example: IBM for computer hardware.</li>
+<li class="fragment">Hubs are likely to include the terms.</li>
+</ul></li>
+<li class="fragment"><strong>HITS Algorithm:</strong>
+<ul>
+<li class="fragment">5 iterations on average are customary.</li>
+<li class="fragment">Downside: Inclusion of pages in a foreign language.
+<ul>
+<li class="fragment">Due to base set construction during which the query is ignored.</li>
+</ul></li>
+</ul></li>
+<li class="fragment"><strong>Importance:</strong>
+<ul>
+<li class="fragment">Enhances the quality of search results by identifying expert sources.</li>
+<li class="fragment">Used in combination with other algorithms like PageRank for comprehensive analysis.</li>
+<li class="fragment">Critical for academic and topic-specific searches.</li>
+</ul></li>
+</ul>
+</div>
+</section></section>
+<section id="take-home-messages" class="title-slide slide level1 center" data-name="Summary">
+<h1>Take Home Messages</h1>
+<div style="font-size: 80%;">
+<ul>
+<li class="fragment">Search Engines</li>
+<li class="fragment">Web Search Basics</li>
+<li class="fragment">Web Crawler</li>
+<li class="fragment">Indexing and Storing Data</li>
+<li class="fragment">Searching Algorithms:
+<ul>
+<li class="fragment">Link Analysis</li>
+<li class="fragment"><strong>Markov Chains</strong> (***)</li>
+<li class="fragment"><strong>PageRank</strong> (**)</li>
+<li class="fragment"><strong>Hubs and Authorities</strong> (**)</li>
+</ul></li>
+</ul>
+</div>
+<div class="quarto-auto-generated-content">
+<p><img src="logo/UoE_Centred Logo_CMYK_v1_160215.png" class="slide-logo"></p>
+<div class="footer footer-default">
+
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="week2_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="week2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="week2_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="week2_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="week2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="week2_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="week2_files/libs/revealjs/plugin/simplemenu/simplemenu.js"></script>
+  <script src="week2_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="week2_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="week2_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="week2_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="week2_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'simplemenu': {"menubarclass":"menubar","menuclass":"menu","activeclass":"active","activeelement":"li","flat":true,"barhtml":{"header":"<div class='menubar'><ul class='menu'></ul></div>","footer":""},"scale":0.5},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, Simplemenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
